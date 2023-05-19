@@ -292,6 +292,16 @@
             "named": true
           }
         ]
+      },
+      "opt_omitted": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "?*",
+            "named": false
+          }
+        ]
       }
     }
   },
@@ -910,6 +920,16 @@
             "named": true
           }
         ]
+      },
+      "opt_omitted": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "cmd_expr_option_omitted",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -1231,6 +1251,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "cmd_expr_option_omitted",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "cmd_text_arg",
@@ -5253,6 +5278,10 @@
           "named": true
         },
         {
+          "type": "math_list_in_math",
+          "named": true
+        },
+        {
           "type": "math_text",
           "named": true
         },
@@ -5396,6 +5425,10 @@
           "named": true
         },
         {
+          "type": "math_list_in_math",
+          "named": true
+        },
+        {
           "type": "math_text",
           "named": true
         },
@@ -5470,6 +5503,21 @@
   },
   {
     "type": "math_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "math",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "math_list_in_math",
     "named": true,
     "fields": {},
     "children": {
@@ -5606,7 +5654,7 @@
       },
       "sig": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "sig_stmt",
@@ -6688,6 +6736,10 @@
           },
           {
             "type": "inline_cmd_name",
+            "named": true
+          },
+          {
+            "type": "unary_operator",
             "named": true
           }
         ]
@@ -7968,6 +8020,10 @@
     "named": false
   },
   {
+    "type": "?*",
+    "named": false
+  },
+  {
     "type": "?->",
     "named": false
   },
@@ -8016,6 +8072,10 @@
     "named": false
   },
   {
+    "type": "\\&",
+    "named": false
+  },
+  {
     "type": "\\*",
     "named": false
   },
@@ -8024,11 +8084,31 @@
     "named": false
   },
   {
+    "type": "\\<",
+    "named": false
+  },
+  {
+    "type": "\\>",
+    "named": false
+  },
+  {
     "type": "\\@",
     "named": false
   },
   {
+    "type": "\\[",
+    "named": false
+  },
+  {
     "type": "\\\\",
+    "named": false
+  },
+  {
+    "type": "\\]",
+    "named": false
+  },
+  {
+    "type": "\\_",
     "named": false
   },
   {

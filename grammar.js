@@ -313,13 +313,21 @@ module.exports = grammar({
 
     // module {{{
     module_stmt: ($) =>
-      seq(
-        "module",
-        field("name", $.module_name),
-        ":",
-        field("sig", $.sig_stmt),
-        "=",
-        field("struct", $.struct_stmt),
+      choice(
+        seq(
+          "module",
+          field("name", $.module_name),
+          "=",
+          field("struct", $.struct_stmt),
+        ),
+        seq(
+          "module",
+          field("name", $.module_name),
+          ":",
+          field("sig", $.sig_stmt),
+          "=",
+          field("struct", $.struct_stmt),
+        ),
       ),
 
     sig_stmt: ($) =>
@@ -357,6 +365,7 @@ module.exports = grammar({
         choice(
           field("name", $.identifier),
           seq("(", field("name", $.binary_operator), ")"),
+          seq("(", field("name", $.unary_operator), ")"),
           field("name", $.inline_cmd_name),
           field("name", $.block_cmd_name),
         ),
@@ -596,6 +605,7 @@ module.exports = grammar({
         choice(
           field("arg", $._application_args),
           field("opt", $._application_args_opt),
+          field("opt_omitted", $._application_args_opt_omitted),
         ),
       ),
     ),
@@ -604,6 +614,8 @@ module.exports = grammar({
     _application_args: ($) => choice($.unary_operator_expr, $.variant_constructor, $.record_member, $._unary),
 
     _application_args_opt: ($) => seq("?:", $._application_args),
+
+    _application_args_opt_omitted: ($) => "?*",
 
     command_application: ($) =>
       prec.left(PREC.application, seq("command", $.inline_cmd_name)),
@@ -750,7 +762,11 @@ module.exports = grammar({
       seq(
         field("name", $.block_cmd_name),
         repeat(
-          choice(field("arg", $.cmd_expr_arg), field("opt", $.cmd_expr_option)),
+          choice(
+            field("arg", $.cmd_expr_arg),
+            field("opt", $.cmd_expr_option),
+            field("opt_omitted", $.cmd_expr_option_omitted)
+          ),
         ),
         choice(repeat1(field("arg", $.cmd_text_arg)), ";"),
       ),
@@ -766,6 +782,7 @@ module.exports = grammar({
 
     cmd_expr_arg: ($) => $._cmd_expr_arg_inner,
     cmd_expr_option: ($) => seq("?:", $._cmd_expr_arg_inner),
+    cmd_expr_option_omitted: ($) => "?*",
     _cmd_expr_arg_inner: ($) => choice(
       seq("(", $._expr, ")"),
       $.list,
@@ -811,6 +828,7 @@ module.exports = grammar({
     _math_cmd_expr_arg_inner: ($) =>
       choice(
         seq("{", $.math, "}"),
+        $.math_list_in_math,
         seq("!", $.inline_text),
         seq("!", $.inline_text_list),
         seq("!", $.inline_text_bullet_list),
@@ -881,8 +899,14 @@ module.exports = grammar({
         "\\\\",
         "\\{",
         "\\}",
+        "\\<",
+        "\\>",
+        "\\[",
+        "\\]",
+        "\\&",
         "\\%",
         "\\|",
+        "\\_",
         "\\*",
         "\\$",
         "\\#",
@@ -914,10 +938,10 @@ module.exports = grammar({
     math_text: ($) => seq("${", optional($.math), "}"),
 
     math_list: ($) =>
-      choice(
-        seq("${", "|", "|", "}"),
-        seq("${", "|", repeat(seq($.math, "|")), "}"),
-      ),
+      seq("${", "|", repeat(seq(optional($.math), "|")), "}"),
+
+    math_list_in_math: ($) =>
+      seq("{", "|", repeat(seq(optional($.math), "|")), "}"),
 
     math: ($) => prec.left(0, repeat1(choice($.math_token, $.math_unary))),
 
