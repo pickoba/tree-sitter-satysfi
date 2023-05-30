@@ -207,7 +207,9 @@ module.exports = grammar({
         repeat1($._arg),
       ),
 
-    let_rec_matcharm: ($) => seq(repeat($._arg), "=", field("expr", $._expr)),
+    let_rec_matcharm: ($) => seq(repeat($.let_rec_matcharm_arg), "=", field("expr", $._expr)),
+
+    let_rec_matcharm_arg: ($) => $._arg,
 
     let_inline_stmt: ($) =>
       choice(

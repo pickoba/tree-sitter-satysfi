@@ -607,7 +607,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "_arg"
+            "name": "let_rec_matcharm_arg"
           }
         },
         {
@@ -623,6 +623,10 @@
           }
         }
       ]
+    },
+    "let_rec_matcharm_arg": {
+      "type": "SYMBOL",
+      "name": "_arg"
     },
     "let_inline_stmt": {
       "type": "CHOICE",

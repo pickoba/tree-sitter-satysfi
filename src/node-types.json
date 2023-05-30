@@ -3873,72 +3873,6 @@
     "type": "let_rec_matcharm",
     "named": true,
     "fields": {
-      "arg": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "_",
-            "named": false
-          },
-          {
-            "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "literal_bool",
-            "named": true
-          },
-          {
-            "type": "literal_float",
-            "named": true
-          },
-          {
-            "type": "literal_int",
-            "named": true
-          },
-          {
-            "type": "literal_length",
-            "named": true
-          },
-          {
-            "type": "literal_string",
-            "named": true
-          },
-          {
-            "type": "literal_unit",
-            "named": true
-          },
-          {
-            "type": "pat_as",
-            "named": true
-          },
-          {
-            "type": "pat_list",
-            "named": true
-          },
-          {
-            "type": "pat_tuple",
-            "named": true
-          },
-          {
-            "type": "unary_operator",
-            "named": true
-          }
-        ]
-      },
       "expr": {
         "multiple": false,
         "required": true,
@@ -4065,6 +3999,88 @@
           },
           {
             "type": "variant_constructor",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "let_rec_matcharm_arg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_rec_matcharm_arg",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "_",
+            "named": false
+          },
+          {
+            "type": "binary_operator",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal_bool",
+            "named": true
+          },
+          {
+            "type": "literal_float",
+            "named": true
+          },
+          {
+            "type": "literal_int",
+            "named": true
+          },
+          {
+            "type": "literal_length",
+            "named": true
+          },
+          {
+            "type": "literal_string",
+            "named": true
+          },
+          {
+            "type": "literal_unit",
+            "named": true
+          },
+          {
+            "type": "pat_as",
+            "named": true
+          },
+          {
+            "type": "pat_list",
+            "named": true
+          },
+          {
+            "type": "pat_tuple",
+            "named": true
+          },
+          {
+            "type": "unary_operator",
             "named": true
           }
         ]
